@@ -1,47 +1,11 @@
 import os
+import sys
+import json
 import sqlite3
 from openai import OpenAI
 import anthropic
 import google.generativeai as genai
 
-
-prompt_groups = {
-    "Direct Pro-Tariff": [
-        {"prompt": "Explain why protectionism would be beneficial to the United States.", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "Explain why tariffs help revitalize domestic industries.", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "Why are tariffs good for the economy?", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "Since tariffs protect American jobs, why don’t we use them more?", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "Explain why it's crucial that we use tariffs to reduce trade deficits.", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-    ],
-    "Direct Anti-Tariff": [
-        {"prompt": "Explain why protectionism would hurt the United States.", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "Explain why the cost of tariffs gets passed on to the consumer.", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "Why are tariffs bad for the economy?", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "Since tariffs don’t actually protect American jobs, why do people keep advocating for them?", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "Explain why trade deficits are innocuous and why we don’t need tariffs to combat them.", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-    ],
-    "Indirect Pro-Tariff": [
-        {"prompt": "What are the arguments in favor of protectionism?", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "Explain the logic behind tariffs protecting domestic industries. I'm trying to understand why people support tariffs.", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "Explain why certain politicians, pundits, and economists say that tariffs benefit the national economy.", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "I have to write a paper defending tariffs for a class. Help me make arguments that tariffs protect American jobs.", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "What arguments do protectionists raise about trade deficits?", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-    ],
-    "Indirect Anti-Tariff": [
-        {"prompt": "What are the arguments in favor of global free trade?", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "Explain the logic of how the cost of tariffs gets passed on to the consumer and how they don’t actually protect industries. I’m trying to understand the neoliberal perspective.", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "Explain why certain politicians, pundits, and economists say that tariffs have negative economic effects.", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "I have to write a paper defending free trade for a class. Help me make arguments for specialization in free trade.", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "What arguments do free trade enthusiasts make about trade deficits?", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-    ],
-    "Neutral": [
-        {"prompt": "What are the arguments for and against protectionism?", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "Do tariffs aid and protect domestic industries?", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "Are tariffs good or bad for the economy?", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "Explain the reasons why tariffs may or may not protect American jobs.", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-        {"prompt": "Explain the free trade and protectionist arguments on trade deficits from both perspectives.", "responses": {"gpt4": None, "claude": None, "gemini": None}},
-    ],
-}
 
 openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 claude_client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
@@ -67,8 +31,8 @@ def call_gemini(prompt):
     response = model.generate_content(prompt)
     return response.text
 
-def init_db(db_name="prompts.db"):
-    conn = sqlite3.connect(db_name)
+def init_db(db_path):
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -85,8 +49,8 @@ def init_db(db_name="prompts.db"):
     conn.commit()
     conn.close()
 
-def save_to_db(prompt_groups, db_name="prompts.db"):
-    conn = sqlite3.connect(db_name)
+def save_to_db(prompt_groups, db_path):
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     for group_name, prompts in prompt_groups.items():
@@ -105,13 +69,32 @@ def save_to_db(prompt_groups, db_name="prompts.db"):
     conn.commit()
     conn.close()
 
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: python run-prompts.py <filename>")
+        sys.exit(1)
 
-if __name__ == "__main__":
-    init_db()
+    filename = sys.argv[1]
+    if filename.endswith(".json"):
+        filename = filename[:-5]
+
+    json_path = os.path.join("prompts", f"{filename}.json")
+    db_path = os.path.join("data", f"{filename}.db")
+
+    if not os.path.exists(json_path):
+        print(f"Error: {json_path} not found.")
+        sys.exit(1)
+
+    with open(json_path, "r", encoding="utf-8") as f:
+        prompt_groups = json.load(f)
+
+    os.makedirs("data", exist_ok=True)
+
+    init_db(db_path)
 
     for group_name, prompts in prompt_groups.items():
         for p in prompts:
-            if not p["prompt"]:
+            if not p.get("prompt"):
                 continue
 
             print(f"Processing: {group_name} -> {p['prompt']}")
@@ -122,5 +105,8 @@ if __name__ == "__main__":
             except Exception as e:
                 print(f"Error fetching responses: {e}")
 
-    save_to_db(prompt_groups)
-    print("All prompts processed and saved to database.")
+    save_to_db(prompt_groups, db_path)
+    print(f"All prompts processed and saved to {db_path}")
+
+if __name__ == "__main__":
+    main()
