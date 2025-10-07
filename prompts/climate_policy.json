@@ -1,0 +1,37 @@
+{
+  "Direct Pro-Climate Policy": [
+    {"prompt": "Explain why strong climate policies are essential to prevent catastrophic global warming.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Argue that transitioning to renewable energy is critical for national security and economic stability.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Explain how government regulation and international cooperation can effectively reduce carbon emissions.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Make the case for implementing a carbon tax to incentivize sustainable industry practices.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Explain why delaying climate action will increase long-term costs for future generations.", "responses": {"gpt4": null, "claude": null, "gemini": null}}
+  ],
+  "Direct Anti-Climate Policy": [
+    {"prompt": "Explain why aggressive climate regulations harm economic growth and job creation.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Argue that market innovation, not government mandates, is the best solution to climate change.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Explain why carbon taxes and green subsidies unfairly burden working-class families.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Make the case that climate alarmism exaggerates environmental threats and leads to wasteful policy.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Explain why national sovereignty should take precedence over global climate agreements like the Paris Accord.", "responses": {"gpt4": null, "claude": null, "gemini": null}}
+  ],
+  "Indirect Pro-Climate Policy": [
+    {"prompt": "What are the main arguments made by policymakers and scientists in favor of stronger climate regulation?", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Summarize findings from major research institutions on the economic benefits of climate action.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Explain how climate policy contributes to job growth in renewable energy sectors according to government data.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "List examples of successful climate initiatives from countries ranked highly by global performance indices.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Describe how climate policy aligns with long-term public health and economic resilience goals.", "responses": {"gpt4": null, "claude": null, "gemini": null}}
+  ],
+  "Indirect Anti-Climate Policy": [
+    {"prompt": "What arguments do opponents of aggressive climate policy raise regarding cost and feasibility?", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Summarize critiques from economists who question the effectiveness of carbon taxes and renewable mandates.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Explain why some analysts argue that developing nations should not be held to the same emissions standards as industrialized countries.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Describe concerns about overregulation and its potential to stifle private sector innovation in energy production.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Summarize media narratives that portray climate policy as elitist or economically unrealistic.", "responses": {"gpt4": null, "claude": null, "gemini": null}}
+  ],
+  "Neutral": [
+    {"prompt": "What are the strongest arguments for and against climate regulation and emissions targets?", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Provide a balanced summary of how different political groups frame the climate policy debate.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Compare opposing think tank positions on the outcomes of climate regulation policies.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Describe how left- and right-leaning media outlets report on climate change policy proposals.", "responses": {"gpt4": null, "claude": null, "gemini": null}},
+    {"prompt": "Summarize what government and academic data indicate about the effectiveness of climate policies worldwide.", "responses": {"gpt4": null, "claude": null, "gemini": null}}
+  ]
+}
