@@ -1,0 +1,114 @@
+{
+    "Think Tanks": {
+      "Kaiser Family Foundation (KFF)": {
+        "articles": [
+          "https://www.kff.org/mental-health/",
+          "https://www.kff.org/statedata/mental-health-and-substance-use-state-fact-sheets/",
+          "https://www.kff.org/medicaid/press-release/amid-a-mental-health-crisis-in-the-u-s-a-new-kff-report-examines-the-steps-that-state-medicaid-programs-are-taking-to-help-shore-up-the-availability-of-crisis-services/",
+          "https://www.kff.org/mental-health/issue-brief/988-suicide-crisis-lifeline-data-trends/"
+        ]
+      },
+      "Mental Health America": {
+        "articles": [
+          "https://mhanational.org/news/mha-releases-2024-state-of-mental-health-in-america-report/",
+          "https://mhanational.org/the-state-of-mental-health-in-america/data-rankings/youth-ranking/",
+          "https://mhanational.org/conference/2024-policy-institute/",
+          "https://mhanational.org/support-education/publications-reports/public-policy-reports/"
+        ]
+      },
+      "NAMI (National Alliance on Mental Illness)": {
+        "articles": [
+          "https://www.nami.org/nami-news/nami-releases-issue-brief-exploring-trends-in-access-to-mental-health-care-state-policy-2025/",
+          "https://www.nami.org/support-education/publications-reports/survey-reports/the-2025-nami-workplace-mental-health-poll/",
+          "https://www.nami.org/support-education/publications-reports/public-policy-reports/2024-state-legislation-issue-brief-series-trends-in-mental-health-and-criminal-justice-state-policy/",
+          "https://www.nami.org/support-education/publications-reports/public-policy-reports/2024-state-legislation-issue-brief-series-trends-in-access-to-mental-health-care-state-policy/",
+          "https://www.nami.org/support-education/publications-reports/survey-reports/",
+          "https://www.nami.org/wp-content/uploads/2025/05/NAMI-2024StateLegBrief-02-AccessToCare.pdf",
+          "https://www.nami.org/about-mental-illness/research/research-news/2024-2/"
+        ]
+      },
+      "Heritage Foundation": {
+        "articles": [
+          "https://www.heritage.org/budget/pages/policy-proposals.html",
+          "https://www.heritage.org/solutions/"
+        ]
+      },
+      "Manhattan Institute": {
+        "articles": [
+          "https://manhattan.institute/article/school-based-mental-health-initiatives-challenges-and-considerations-for-policymakers",
+          "https://manhattan.institute/article/therapy-culture-is-fueling-the-youth-mental-health-crisis",
+          "https://manhattan.institute/article/addressing-mental-health",
+          "https://manhattan.institute/article/systems-under-strain-deinstitutionalization-in-new-york-state-and-city-2025-update",
+          "https://manhattan.institute/article/americas-mental-health-policy-quietly-improves",
+          "https://manhattan.institute/article/new-report-evaluating-school-based-mental-health-initiatives"
+        ]
+      },
+      "American Enterprise Institute (AEI)": {
+        "articles": [
+          "https://www.aei.org/op-eds/the-coming-mental-health-crisis/",
+          "https://www.aei.org/op-eds/this-program-is-a-lifeline-for-the-severely-mentally-ill/",
+          "https://www.aei.org/events/health-policy-and-the-2024-election/",
+          "https://media.aei.org/policy-areas/health-care/"
+        ]
+      }
+    },
+    "Legacy Media": {
+      "CDC (Centers for Disease Control)": {
+        "articles": [
+          "https://www.cdc.gov/media/releases/2024/p0806-youth-mental-health.html",
+          "https://www.cdc.gov/healthy-youth/mental-health/mental-health-numbers.html"
+        ]
+      },
+      "Annie E. Casey Foundation": {
+        "articles": [
+          "https://www.aecf.org/blog/youth-mental-health-statistics"
+        ]
+      },
+      "Well Being Trust": {
+        "articles": [
+          "https://wellbeingtrust.org/news/new-from-kaiser-family-foundation-key-findings-about-mental-health-and-substance-use-disorders/"
+        ]
+      }
+    },
+    "Reports": {
+      "SAMHSA (Substance Abuse and Mental Health Services Administration)": {
+        "articles": [
+          "https://www.samhsa.gov/grants",
+          "https://www.samhsa.gov/grants/grant-announcements/sm-23-013"
+        ]
+      },
+      "NIMH / NIH": {
+        "articles": [
+          "https://pubmed.ncbi.nlm.nih.gov/39891642/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC11790661/"
+        ]
+      },
+      "AmeriCorps": {
+        "articles": [
+          "https://www.americorps.gov/newsroom/press-release/eleven-states-launch-new-initiative-address-americas-youth-mental-health"
+        ]
+      },
+      "HRSA": {
+        "articles": [
+          "https://bphc.hrsa.gov/funding/funding-opportunities/behavioral-health-service-expansion",
+          "https://www.hrsa.gov/grants/find-funding"
+        ]
+      },
+      "American Psychological Association": {
+        "articles": [
+          "https://updates.apaservices.org/new-policies-affecting-access-to-mental-health-care"
+        ]
+      },
+      "New York City Health Department": {
+        "articles": [
+          "https://www.nyc.gov/site/doh/about/press/pr2024/nyc-releases-first-ever-state-of-mental-health-report.page",
+          "https://mentalhealth.cityofnewyork.us/dashboard/"
+        ]
+      },
+      "Frontiers in Psychiatry": {
+        "articles": [
+          "https://www.frontiersin.org/journals/psychiatry/articles/10.3389/fpsyt.2024.1517533/full"
+        ]
+      }
+    }
+  }
