@@ -79,7 +79,7 @@ def main():
         filename = filename[:-5]
 
     json_path = os.path.join("prompts", f"{filename}.json")
-    db_path = os.path.join("data", f"{filename}.db")
+    db_path = os.path.join("prompt-data", f"{filename}.db")
 
     if not os.path.exists(json_path):
         print(f"Error: {json_path} not found.")
@@ -88,7 +88,7 @@ def main():
     with open(json_path, "r", encoding="utf-8") as f:
         prompt_groups = json.load(f)
 
-    os.makedirs("data", exist_ok=True)
+    os.makedirs("prompt-data", exist_ok=True)
 
     init_db(db_path)
 
