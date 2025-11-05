@@ -1,31 +1,11 @@
 import sys
 import os
-import subprocess
-import json
-import csv
 import time
+import json
+import sqlite3
 from newspaper import Article
 from bs4 import BeautifulSoup
 import requests
-
-
-def ensure_dependencies():
-    """Install requirements and NLTK punkt tokenizer."""
-    print("Ensuring dependencies are installed...")
-    try:
-        subprocess.run(
-            [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"],
-            check=True,
-        )
-        subprocess.run(
-            [sys.executable, "-m", "nltk.downloader", "punkt"],
-            check=True,
-        )
-    except subprocess.CalledProcessError as e:
-        print(f"Dependency setup failed: {e}")
-        sys.exit(1)
-    print("Dependencies verified.\n")
-
 
 def extract_with_newspaper(url):
     """Try to extract article using newspaper3k."""
@@ -47,7 +27,6 @@ def extract_with_newspaper(url):
         print(f"[WARN] Newspaper3k failed for {url}: {e}")
         return None
 
-
 def extract_with_bs4(url):
     """Fallback extraction using BeautifulSoup."""
     try:
@@ -61,7 +40,6 @@ def extract_with_bs4(url):
         print(f"[WARN] BS4 fallback failed for {url}: {e}")
         return None
 
-
 def extract_article(url):
     """Try both methods."""
     data = extract_with_newspaper(url)
@@ -69,23 +47,45 @@ def extract_article(url):
         return data
     return extract_with_bs4(url)
 
+def create_db(db_path):
+    """Create SQLite database and table if they don't exist."""
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS articles (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            topic TEXT,
+            source_type TEXT,
+            source_name TEXT,
+            url TEXT UNIQUE,
+            title TEXT,
+            author TEXT,
+            publication_date TEXT,
+            text TEXT
+        )
+    """)
+    conn.commit()
+    return conn
 
 def scrape_topic(topic, delay=1.5):
     input_path = os.path.join("sources", f"{topic}.json")
     output_dir = "source-data"
-    output_path = os.path.join(output_dir, f"{topic}.csv")
+    db_path = os.path.join(output_dir, f"{topic}.db")
 
     if not os.path.exists(input_path):
         print(f"Source file not found: {input_path}")
         sys.exit(1)
 
     os.makedirs(output_dir, exist_ok=True)
-
     print(f"Loading sources from {input_path} ...")
+    
     with open(input_path, "r", encoding="utf-8") as f:
         sources = json.load(f)
 
-    rows = []
+    conn = create_db(db_path)
+    cursor = conn.cursor()
+    inserted_count = 0
+
     for source_type, orgs in sources.items():
         for org_name, org_data in orgs.items():
             urls = org_data.get("articles", [])
@@ -93,26 +93,31 @@ def scrape_topic(topic, delay=1.5):
                 print(f"[INFO] Scraping: {org_name} → {url}")
                 data = extract_article(url)
                 if data and data["text"].strip():
-                    rows.append({
-                        "topic": topic,
-                        "source_type": source_type,
-                        "source_name": org_name,
-                        "url": url,
-                        **data
-                    })
+                    try:
+                        cursor.execute("""
+                            INSERT OR IGNORE INTO articles
+                            (topic, source_type, source_name, url, title, author, publication_date, text)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                        """, (
+                            topic,
+                            source_type,
+                            org_name,
+                            url,
+                            data["title"],
+                            data["author"],
+                            data["publication_date"],
+                            data["text"]
+                        ))
+                        conn.commit()
+                        inserted_count += 1
+                    except Exception as e:
+                        print(f"[ERROR] Failed to insert {url}: {e}")
                 else:
                     print(f"[ERROR] Failed to extract content for {url}")
                 time.sleep(delay)
 
-    # Write CSV
-    fieldnames = ["topic", "source_type", "source_name", "url", "title", "author", "publication_date", "text"]
-    with open(output_path, "w", encoding="utf-8", newline="") as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(rows)
-
-    print(f"\nDone! Extracted {len(rows)} articles → {output_path}")
-
+    conn.close()
+    print(f"\nDone! Inserted {inserted_count} articles into {db_path}")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -120,5 +125,4 @@ if __name__ == "__main__":
         sys.exit(1)
 
     topic = sys.argv[1].strip().lower()
-    #ensure_dependencies() probably not needed for now
     scrape_topic(topic)
