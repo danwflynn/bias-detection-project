@@ -31,6 +31,7 @@ Before running the project, install the required Python packages:
 
 ```bash
 pip install -r requirements.txt
+python -m nltk.downloader punkt
 ```
 
 ## Running the Script
@@ -39,3 +40,12 @@ Once you have set your API keys, you can run the main script with:
 
 ```bash
 python run-prompts.py [topic]
+```
+
+## Web scraping for sources
+
+The tool can be ran with:
+
+```bash
+python source-scraping.py [topic]
+```
