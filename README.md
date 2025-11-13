@@ -52,4 +52,4 @@ python source-scraping.py [topic]
 
 ## Quantifying the Bias
 
-- **OpenAI API Key**: [Google doc](https://docs.google.com/document/d/1K_Mu3mVgmBHQOv3zoLz93A0RZUJ5Id2zbY-ZgI1PGYY/edit?tab=t.0)
+- **Google Doc**: [Media Bias Checker](https://docs.google.com/document/d/1K_Mu3mVgmBHQOv3zoLz93A0RZUJ5Id2zbY-ZgI1PGYY/edit?tab=t.0)
